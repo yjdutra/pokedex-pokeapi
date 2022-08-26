@@ -1,12 +1,15 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
+import { getData, getTypes } from "./src/utils";
 import { StatusChart } from "./src/components/StatusChart";
-import { getData } from "./src/utils";
+import { TypesList } from "./src/components/TypesList";
 
 export default function Home() {
   const [pokemon, setPokemon] = useState(null);
   const [pokemonSearch, setPokemonSearch] = useState(null);
   const [pokemonStats, setPokemonStats] = useState([]);
+  const [pokemonTypes, setPokemonTypes] = useState([]);
+  const [pokemonMoves, setPokemonMoves] = useState([]);
 
   const handleChange = (event) => {
     setPokemonSearch(event.target.value);
@@ -22,8 +25,18 @@ export default function Home() {
       .then((data) => {
         setPokemon(data);
         setPokemonStats(getData(data.stats));
-        console.log(data);
+        setPokemonMoves(data.moves);
+        setPokemonTypes(getTypes(data.types));
+        console.log(pokemonTypes);
       });
+    /* fetch(`https://pokeapi.co/api/v2/ability/${pokemonSearch}`)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      })
+      .then((data) => {
+      }); */
   };
 
   return (
@@ -53,7 +66,9 @@ export default function Home() {
 
       {pokemon ? (
         <div className="container-fluid bg-dark rounded mb-4 p-4">
-          <p className="text-center fs-1 fw-bold text-white">{pokemon.species.name}</p>
+          <p className="text-center fs-1 fw-bold text-white">
+            {pokemon.species.name}
+          </p>
           <div className=" container-fluid bg-white d-flex justify-content-around rounded-pill">
             {pokemon.sprites.front_default ? (
               <div className="d-flex flex-column mb-2 ">
@@ -109,9 +124,14 @@ export default function Home() {
         <div className="d-flex justify-content-around">
           <div className="container-sm text-center">
             <h3>Stats</h3>
-            <StatusChart stats={pokemonStats} />
+            {<StatusChart stats={pokemonStats} />}
           </div>
-          <div className="bg-dark container-sm text-center">oi</div>
+          <div className="container-sm text-center ">
+            <div className="d-block p-2 bg-dark rounded-pill">
+              <p className="text-center fs-1 fw-bold text-white">Types</p>
+              <TypesList types={pokemonTypes} />
+            </div>
+          </div>
         </div>
       ) : null}
     </>
