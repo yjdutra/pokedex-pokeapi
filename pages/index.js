@@ -1,24 +1,28 @@
 /* eslint-disable @next/next/no-img-element */
 import { useState } from "react";
+import { StatusChart } from "./src/components/StatusChart";
+import { getData } from "./src/utils";
 
 export default function Home() {
   const [pokemon, setPokemon] = useState(null);
   const [pokemonSearch, setPokemonSearch] = useState(null);
+  const [pokemonStats, setPokemonStats] = useState([]);
 
   const handleChange = (event) => {
     setPokemonSearch(event.target.value);
   };
 
-  const speciesSearch = () => {
-    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonSearch}`)
+  const speciesSearch = async () => {
+    await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonSearch}`)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
         }
       })
       .then((data) => {
-        console.log(data);
         setPokemon(data);
+        setPokemonStats(getData(data.stats));
+        /* console.log(pokemonStats); */
       });
   };
 
@@ -30,7 +34,11 @@ export default function Home() {
         </a>
       </nav>
       <div className="input-group mb-3">
-        <button className="input-group-text" id="basic-addon1" onClick={speciesSearch}>
+        <button
+          className="input-group-text"
+          id="basic-addon1"
+          onClick={speciesSearch}
+        >
           🔎
         </button>
         <input
@@ -38,13 +46,13 @@ export default function Home() {
           onChange={handleChange}
           type="text"
           className="form-control text-center"
-          placeholder="Search Pokemon by name"
+          placeholder="Search Pokemon by name or pokedex number"
           aria-describedby="basic-addon1"
         />
       </div>
 
-      <div className="container-fluid bg-secondary rounded mb-4 p-4">
-        {pokemon ? (
+      {pokemon ? (
+        <div className="container-fluid bg-secondary rounded mb-4 p-4">
           <div className=" container-fluid bg-white d-flex justify-content-around rounded-pill">
             {pokemon.sprites.front_default ? (
               <div className="d-flex flex-column mb-2 ">
@@ -94,8 +102,17 @@ export default function Home() {
               </div>
             ) : null}
           </div>
-        ) : null}
-      </div>
+        </div>
+      ) : null}
+      {pokemon ? (
+        <div className="d-flex justify-content-around">
+          <div className="container-sm text-center">
+            <h3>Stats</h3>
+            <StatusChart stats={pokemonStats} />
+          </div>
+          <div className="bg-dark container-sm text-center">oi</div>
+        </div>
+      ) : null}
     </>
   );
 }
