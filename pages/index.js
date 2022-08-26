@@ -22,7 +22,7 @@ export default function Home() {
       .then((data) => {
         setPokemon(data);
         setPokemonStats(getData(data.stats));
-        /* console.log(pokemonStats); */
+        console.log(data);
       });
   };
 
@@ -52,7 +52,8 @@ export default function Home() {
       </div>
 
       {pokemon ? (
-        <div className="container-fluid bg-secondary rounded mb-4 p-4">
+        <div className="container-fluid bg-dark rounded mb-4 p-4">
+          <p className="text-center fs-1 fw-bold text-white">{pokemon.species.name}</p>
           <div className=" container-fluid bg-white d-flex justify-content-around rounded-pill">
             {pokemon.sprites.front_default ? (
               <div className="d-flex flex-column mb-2 ">

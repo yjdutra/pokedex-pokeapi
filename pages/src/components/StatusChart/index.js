@@ -6,7 +6,6 @@ export const StatusChart = ({ stats }) => {
   return (
     <>
       <Chart chartType="ColumnChart" width="100%" height="300px" data={data} />
-      {console.log(data)}
     </>
   );
 };
