@@ -12,8 +12,8 @@ export default function Home() {
     setPokemonSearch(event.target.value);
   };
 
-  const speciesSearch = async () => {
-    await fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonSearch}`)
+  const speciesSearch = () => {
+    fetch(`https://pokeapi.co/api/v2/pokemon/${pokemonSearch}`)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
