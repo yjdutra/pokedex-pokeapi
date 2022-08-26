@@ -27,7 +27,7 @@ export default function Home() {
         setPokemonStats(getData(data.stats));
         setPokemonMoves(data.moves);
         setPokemonTypes(getTypes(data.types));
-        console.log(pokemonTypes);
+        console.log(data);
       });
     /* fetch(`https://pokeapi.co/api/v2/ability/${pokemonSearch}`)
       .then((response) => {
@@ -75,8 +75,8 @@ export default function Home() {
                 <img
                   src={pokemon.sprites.front_default}
                   alt="Imagem do pokemon"
-                  width={100}
-                  height={100}
+                  width={150}
+                  height={150}
                 />
                 <span>Default male</span>
               </div>
@@ -87,8 +87,8 @@ export default function Home() {
                 <img
                   src={pokemon.sprites.front_shiny}
                   alt="Imagem do pokemon"
-                  width={100}
-                  height={100}
+                  width={150}
+                  height={150}
                 />
                 <span>Shiny male</span>
               </div>
@@ -99,8 +99,8 @@ export default function Home() {
                 <img
                   src={pokemon.sprites.front_female}
                   alt="Imagem do pokemon"
-                  width={100}
-                  height={100}
+                  width={150}
+                  height={150}
                 />
                 <span>Default female</span>
               </div>
@@ -111,8 +111,8 @@ export default function Home() {
                 <img
                   src={pokemon.sprites.front_shiny_female}
                   alt="Imagem do pokemon"
-                  width={100}
-                  height={100}
+                  width={150}
+                  height={150}
                 />
                 <span>Shiny female</span>
               </div>
