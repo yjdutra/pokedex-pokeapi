@@ -10,6 +10,7 @@ export default function Home() {
   const [pokemonStats, setPokemonStats] = useState([]);
   const [pokemonTypes, setPokemonTypes] = useState([]);
   const [pokemonMoves, setPokemonMoves] = useState([]);
+  const [pokemonSpecie, setPokemonSpecie] = useState([]);
 
   const handleChange = (event) => {
     setPokemonSearch(event.target.value);
@@ -27,16 +28,17 @@ export default function Home() {
         setPokemonStats(getData(data.stats));
         setPokemonMoves(data.moves);
         setPokemonTypes(getTypes(data.types));
-        console.log(data);
       });
-    /* fetch(`https://pokeapi.co/api/v2/ability/${pokemonSearch}`)
+      fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonSearch}`)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
         }
       })
       .then((data) => {
-      }); */
+        console.log(data);
+        setPokemonSpecie(data)
+      });
   };
 
   return (
@@ -52,7 +54,7 @@ export default function Home() {
           id="basic-addon1"
           onClick={speciesSearch}
         >
-          🔎
+          🔎 
         </button>
         <input
           value={pokemonSearch}
@@ -127,8 +129,12 @@ export default function Home() {
             {<StatusChart stats={pokemonStats} />}
           </div>
           <div className="container-sm text-center ">
-            <div className="d-block p-2 bg-dark rounded-pill">
+            <div className="d-block p-2 bg-dark rounded-pill mb-2">
               <p className="text-center fs-1 fw-bold text-white">Types</p>
+              <TypesList types={pokemonTypes} />
+            </div>
+            <div className="d-block p-2 bg-dark rounded-pill">
+              <p className="text-center fs-1 fw-bold text-white">Class</p>
               <TypesList types={pokemonTypes} />
             </div>
           </div>

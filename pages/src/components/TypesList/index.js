@@ -1,6 +1,19 @@
 export const TypesList = ({ types }) => {
-  const data = types.map((e) => {
-    return  `📌 ${e} ` ;
-  });
-  return <div className="text-white fs-3">{data}</div>;
+   
+     types.is_baby === false ?
+      is_baby = "❌" : "✅";
+
+      types.is_legendary === false ?
+      is_is_legendary = "❌" : "✅";
+
+      types.is_mythical === false ?
+      is_mythical = "❌" : "✅";
+
+  return (
+    <>
+      <div className="text-whit  e fs-3"> {` Baby : ${is_baby}`}</div>
+      <div className="text-white fs-3"> {` Legendary : ${is_legendary}`}</div>
+      <div className="text-white fs-3">{` Mythical ${is_mythical}`}</div>
+    </>
+  );
 };
