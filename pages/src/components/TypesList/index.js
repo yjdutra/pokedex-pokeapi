@@ -1,10 +1,10 @@
 export const TypesList = ({ types }) => {
    
      types.is_baby === false ?
-      is_baby = "❌" : "✅";
+      const is_baby = "❌" : "✅";
 
       types.is_legendary === false ?
-      is_is_legendary = "❌" : "✅";
+      is_legendary = "❌" : "✅";
 
       types.is_mythical === false ?
       is_mythical = "❌" : "✅";
