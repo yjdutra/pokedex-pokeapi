@@ -1,27 +1,31 @@
 /* eslint-disable @next/next/no-img-element */
+import { useState } from "react";
+
 export const Evolution = ({ evolve }) => {
-  const image = () => {
-    fetch(evolve.species.url).then((response) => {
-      if (response.status === 200) {
-        return response.json();
-      }
-    }).then((data)=>{
-        pokemon.sprites.front_default
-    })
+  const [pokemonImage, setPokemonImage] = useState(null);
+
+   (evolve) => {
+    fetch(evolve.species.url)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      })
+      .then((data) => {
+          console.log(data);
+        setPokemonImage(data.sprites.front_default);
+      });
   };
 
-  return console.log(evolve);
-  {
-    /* <>
+  return (
+    <>
       <img
-        src={image}
+        src={pokemonImage}
         alt="Imagem do pokemon"
         width={150}
         height={150}
       />
-      <span>Shiny male</span>
+      <span>oi</span>
     </>
   );
- */
-  }
 };

@@ -58,6 +58,7 @@ export default function Home() {
             }
           })
           .then((data) => {
+            console.log(data.chain);
             setPokemonEvolve(data.chain);
           });
       });
@@ -72,6 +73,10 @@ export default function Home() {
         //setPokemonEvolveTo();
         //setPokemonEvolveFrom();
       }); */
+  };
+
+  const evolutionSelect = () => {
+    setPokemon(pokemonEvolve.species.name);
   };
 
   return (
@@ -177,12 +182,35 @@ export default function Home() {
         </div>
       ) : null}
 
-      {pokemon ? (
+      {pokemonEvolve ? (
         <div className="container-fluid bg-dark rounded mb-4 p-4">
           <p className="text-center fs-1 fw-bold text-white">Evolution stage</p>
-          <div className=" container-fluid bg-white d-flex justify-content-around rounded">
-            <Evolution evolve={pokemonEvolve} />
-          </div>
+
+          {pokemonEvolve.species.name ? (
+            <a onClick={evolutionSelect}>
+              <div className=" container-fluid bg-white d-flex justify-content-around rounded mb-1">
+                {pokemonEvolve.species.name}
+              </div>
+            </a>
+          ) : (
+            null
+          )}
+
+          {pokemonEvolve.evolves_to[0].species.name ? (
+            <div className=" container-fluid bg-white d-flex justify-content-around rounded mb-1">
+              {pokemonEvolve.evolves_to[0].species.name}
+            </div>
+          ) : (
+            null
+          )}
+
+          {pokemonEvolve.evolves_to[0].evolves_to[0].species.name ? (
+            <div className=" container-fluid bg-white d-flex justify-content-around rounded mb-1">
+              {pokemonEvolve.evolves_to[0].evolves_to[0].species.name}
+            </div>
+          ) : (
+            null
+          )}
         </div>
       ) : null}
     </>
