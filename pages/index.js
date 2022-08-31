@@ -3,12 +3,17 @@ import { useState } from "react";
 import { getData, getTypes } from "./src/utils";
 import { StatusChart } from "./src/components/StatusChart";
 import { TypesList } from "./src/components/TypesList";
+import { Evolution } from "./src/components/Evolution";
 
 export default function Home() {
   const [pokemon, setPokemon] = useState(null);
   const [pokemonSearch, setPokemonSearch] = useState(null);
   const [pokemonStats, setPokemonStats] = useState([]);
   const [pokemonTypes, setPokemonTypes] = useState([]);
+  const [pokemonLegendary, setPokemonLegendary] = useState(false);
+  const [pokemonMythical, setPokemonMythical] = useState(false);
+  const [pokemonBaby, setPokemonBaby] = useState(false);
+  const [pokemonEvolve, setPokemonEvolve] = useState(null);
   const [pokemonMoves, setPokemonMoves] = useState([]);
 
   const handleChange = (event) => {
@@ -24,25 +29,55 @@ export default function Home() {
       })
       .then((data) => {
         setPokemon(data);
-        setPokemonStats(getData(data.stats));
         setPokemonMoves(data.moves);
+        setPokemonStats(getData(data.stats));
         setPokemonTypes(getTypes(data.types));
-        console.log(data);
       });
-    /* fetch(`https://pokeapi.co/api/v2/ability/${pokemonSearch}`)
+
+    fetch(`https://pokeapi.co/api/v2/pokemon-species/${pokemonSearch}`)
       .then((response) => {
         if (response.status === 200) {
           return response.json();
         }
       })
       .then((data) => {
+        data.is_legendary === false
+          ? setPokemonLegendary("❌")
+          : setPokemonLegendary("✅");
+
+        data.is_mythical === false
+          ? setPokemonMythical("❌")
+          : setPokemonMythical("✅");
+
+        data.is_baby === false ? setPokemonBaby("❌") : setPokemonBaby("✅");
+
+        fetch(`${data.evolution_chain.url}`)
+          .then((response) => {
+            if (response.status === 200) {
+              return response.json();
+            }
+          })
+          .then((data) => {
+            setPokemonEvolve(data.chain);
+          });
+      });
+
+    /*  fetch(`https://pokeapi.co/api/v2/evolution-chain/${pokemonSearch}`)
+      .then((response) => {
+        if (response.status === 200) {
+          return response.json();
+        }
+      })
+      .then((data) => {
+        //setPokemonEvolveTo();
+        //setPokemonEvolveFrom();
       }); */
   };
 
   return (
     <>
       <nav className="navbar navbar-expand navbar-dark  bg-dark mb-4 ">
-        <a className="navbar-brand text-white" href=" ">
+        <a className="navbar-brand text-white " href=" ">
           Pokedex
         </a>
       </nav>
@@ -69,7 +104,7 @@ export default function Home() {
           <p className="text-center fs-1 fw-bold text-white">
             {pokemon.species.name}
           </p>
-          <div className=" container-fluid bg-white d-flex justify-content-around rounded-pill">
+          <div className=" container-fluid bg-white d-flex justify-content-around rounded">
             {pokemon.sprites.front_default ? (
               <div className="d-flex flex-column mb-2 ">
                 <img
@@ -121,16 +156,32 @@ export default function Home() {
         </div>
       ) : null}
       {pokemon ? (
-        <div className="d-flex justify-content-around">
-          <div className="container-sm text-center">
+        <div className="d-flex justify-content-around mb-3">
+          <div className="container-sm text-center bg-dark rounded">
             <h3>Stats</h3>
             {<StatusChart stats={pokemonStats} />}
           </div>
-          <div className="container-sm text-center ">
-            <div className="d-block p-2 bg-dark rounded-pill">
+          <div className="container-sm text-center">
+            <div className="d-block p-2 bg-dark rounded mb-3">
               <p className="text-center fs-1 fw-bold text-white">Types</p>
               <TypesList types={pokemonTypes} />
             </div>
+
+            <div className="d-block p-2 bg-dark rounded">
+              <p className="text-center fs-1 fw-bold text-white">Types</p>
+              <div className="text-white fs-3">{`Pokemon Baby : ${pokemonBaby}`}</div>
+              <div className="text-white fs-3">{`Pokemon Mythical : ${pokemonMythical}`}</div>
+              <div className="text-white fs-3">{`Pokemon Legendary : ${pokemonLegendary}`}</div>
+            </div>
+          </div>
+        </div>
+      ) : null}
+
+      {pokemon ? (
+        <div className="container-fluid bg-dark rounded mb-4 p-4">
+          <p className="text-center fs-1 fw-bold text-white">Evolution stage</p>
+          <div className=" container-fluid bg-white d-flex justify-content-around rounded">
+            <Evolution evolve={pokemonEvolve} />
           </div>
         </div>
       ) : null}
