@@ -1,5 +1,13 @@
-Esse projeto tem por objetivo a construção de uma pokedex, que consome a [pokeAPI](https://pokeapi.co/)
+Esse projeto tem por objetivo a construção de uma pokedex, e possui as seguintes tecnologias:
+<br/>
+.[PokeAPI](https://pokeapi.co/) <br/>
+.[Bootstrap](https://getbootstrap.com/) <br/>
+.[Google charts](https://developers.google.com/chart) <br/>
 
+.Foi criado pelo comando:
+```bash
+yarn create next-app 
+```
 ## Getting Started
 
 First, run the development server:
@@ -20,4 +28,4 @@ yarn dev
 - evolution stage
 
 ## image:
-<img src="[https://user-images.githubusercontent.com/89464675/183433752-9030ea09-8f47-4bd5-9793-539f4f0edecc.png](https://github.com/yjdutra/pokedex-pokeapi/blob/Development/public/img.png)" width="400" height="500"/>
+<img src="https://github.com/yjdutra/pokedex-pokeapi/blob/main/public/img.png" width="700" height="500"/>
