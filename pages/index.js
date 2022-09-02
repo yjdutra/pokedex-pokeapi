@@ -192,11 +192,9 @@ export default function Home() {
                 {pokemonEvolve.species.name}
               </div>
             </a>
-          ) : (
-            null
-          )}
+          ) : null}
 
-          {pokemonEvolve.evolves_to[0].species.name ? (
+                     {pokemonEvolve.evolves_to[0].species.name ? (
             <div className=" container-fluid bg-white d-flex justify-content-around rounded mb-1">
               {pokemonEvolve.evolves_to[0].species.name}
             </div>
@@ -210,7 +208,7 @@ export default function Home() {
             </div>
           ) : (
             null
-          )}
+          )} 
         </div>
       ) : null}
     </>

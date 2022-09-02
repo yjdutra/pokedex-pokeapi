@@ -4,7 +4,9 @@ import { useState } from "react";
 export const Evolution = ({ evolve }) => {
   const [pokemonImage, setPokemonImage] = useState(null);
 
-   (evolve) => {
+  const PokeName = evolve.species.name;
+
+  /*    (evolve) => {
     fetch(evolve.species.url)
       .then((response) => {
         if (response.status === 200) {
@@ -15,7 +17,7 @@ export const Evolution = ({ evolve }) => {
           console.log(data);
         setPokemonImage(data.sprites.front_default);
       });
-  };
+  }; */
 
   return (
     <>
